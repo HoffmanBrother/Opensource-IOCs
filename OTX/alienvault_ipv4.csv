@@ -1,0 +1,4 @@
+IndicatorType,IndicatorValue,Action,Severity,Title,Description
+IpAddress,8.8.8.8,Alert,Low,Google DNS,Public DNS server
+IpAddress,185.220.101.1,Block,High,Tor Node,Known Tor Exit Node
+IpAddress,23.94.254.15,Alert,Medium,Malicious Host,Reported C2 server
