@@ -3,7 +3,7 @@ import os
 import csv
 
 API_KEY = os.getenv("OTX_API_KEY")
-otx = OTXv2(b6af396d80a486f2fe219a83682ecc54722edb0360b44ddb0b31c534fd42ec46)
+otx = OTXv2(API_KEY)
 
 pulses = otx.getall()
 ips = []
