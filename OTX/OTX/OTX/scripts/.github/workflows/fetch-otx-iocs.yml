@@ -1,1 +1,35 @@
+name: Update AlienVault IPv4 IOCs
 
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update-iocs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install OTX SDK
+      run: pip install OTXv2
+
+    - name: Run IP fetch script
+      env:
+        OTX_API_KEY: ${{ secrets.OTX_API_KEY }}
+      run: python scripts/fetch_alienvault_ips.py
+
+    - name: Commit and push updated file
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add OTX/alienvault_ipv4.csv
+        git diff --cached --quiet || git commit -m "Update IPv4 IOCs from AlienVault"
+        git push
